@@ -4,7 +4,7 @@ Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning 
 
 [Lu Yin](https://luuyin.com//), [You Wu](https://research.google/people/YouWillWu/), [Zhenyu Zhang](https://scholar.google.com/citations?user=ZLyJRxoAAAAJ&hl=zh-CN), [Cheng-Yu Hsieh](https://chengyuhsieh.github.io/), [Yaqing Wang](https://yaqingwang.github.io/), [Yiling Jia](https://yilingjia.github.io/), [Mykola Pechenizkiy](https://www.tue.nl/en/research/researchers/mykola-pechenizkiy), [Yi Liang](https://research.google/people/108265/), [Zhangyang Wang](https://vita-group.github.io/), [Shiwei Liu](https://shiweiliuiiiiiii.github.io/)
 
-*University of Texas at Austin, Eindhoven University of Technology, Google Research, NY. University of Washington.*
+**University of Texas at Austin, Eindhoven University of Technology, Google Research, NY. University of Washington.**
 
 The code can be contacted at l.yin@tue.nl.
 
@@ -14,14 +14,14 @@ The code can be contacted at l.yin@tue.nl.
 </p>
 
 
-<p style="text-align: center;"><i> OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution (LOD)<i></p>
+<p style="text-align: center;"><i> OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution (LOD)</i></p>
 
 
 <p align="center">
 <img src="./Images/ppl.png" width="700" height="200">
 </p>
 
-<p style="text-align: center;"><i>WikiText validation perplexity of OWL applied to SparseGPT and Wanda<i></p>
+<p style="text-align: center;"><i>WikiText validation perplexity of OWL applied to SparseGPT and Wanda</i></p>
 
 
 
@@ -36,8 +36,9 @@ The code can be contacted at l.yin@tue.nl.
 | SparseGPT  | Uniform                | ✔️               | 26.30          | 19.24            | 12.56            | 10.45            | **20.29**    |
 | OWL w. SparseGPT | Non-Uni         | ✔️               | **19.49 (-6.81)** | **14.55 (-4.69)** | **10.28 (-2.28)** | **8.28 (-0.64)** | 22.48 (2.19)  |
 
-<p style="text-align: center;"><i>  WikiText validation perplexity of pruning methods for LLaMA-V1 family and OPT-6.7B at 70% sparsity. 
-The best performance method is indicated in <b>bold </b>, and the gain in perplexity achieved by OWL is highlighted in blue.<i></p>
+
+<p style="text-align: center;"><i>WikiText validation perplexity of pruning methods for LLaMA-V1 family and OPT-6.7B at 70% sparsity. 
+The best performance method is indicated in <b>bold </b>, and the gain in perplexity achieved by OWL is highlighted in blue.</i></p>
 
 
 
