@@ -47,7 +47,7 @@ The best performance method is indicated in <b>bold </b>, and the gain in perple
 * [Installation](#installation)
 * [Usage](#Usage)
 
---- 
+---
 
 ## Installation 
 Installation instructions can be found in [INSTALL.md](INSTALL.md).
@@ -56,7 +56,7 @@ Installation instructions can be found in [INSTALL.md](INSTALL.md).
 
 ## Usage
 
---- 
+---
 We provide a quick overview of the arguments:  
 - `--model`: The identifier for the LLaMA model on the Hugging Face model hub.
 - `--cache_dir`: Directory for loading or storing LLM weights. The default is `llm_weights`.
@@ -69,7 +69,7 @@ We provide a quick overview of the arguments:
 
 
 
---- 
+---
 ### Script example of pruning llama-7b using OWL-wanda
 
 ```
@@ -92,6 +92,21 @@ do
     done
 done
 
+```
+
+### Zero-Shot Benchmarking
+
+```
+# pip install lm-eval
+cd zero_shot_benchmark
+# step 1: generate test-data
+bash scripts/data_generation/run.sh
+
+# step 2: generate the output
+bash scripts/benchmark/run.sh # modify line 2 for the name of output-file and line 3 for the target evaluation model
+
+# step 3: calculate metrics
+bash scripts/benchmark/eval.sh # modify line 2 to align the output-file name of step 2
 ```
 
 
