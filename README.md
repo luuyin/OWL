@@ -4,7 +4,7 @@ Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning 
 
 [Lu Yin](https://luuyin.com//), [You Wu](https://research.google/people/YouWillWu/), [Zhenyu Zhang](https://scholar.google.com/citations?user=ZLyJRxoAAAAJ&hl=zh-CN), [Cheng-Yu Hsieh](https://chengyuhsieh.github.io/), [Yaqing Wang](https://yaqingwang.github.io/), [Yiling Jia](https://yilingjia.github.io/), [Mykola Pechenizkiy](https://www.tue.nl/en/research/researchers/mykola-pechenizkiy), [Yi Liang](https://research.google/people/108265/), [Zhangyang Wang](https://vita-group.github.io/), [Shiwei Liu](https://shiweiliuiiiiiii.github.io/)
 
-**University of Texas at Austin, Eindhoven University of Technology, Google Research, NY. University of Washington**.
+*University of Texas at Austin, Eindhoven University of Technology, Google Research, NY. University of Washington.*
 
 The code can be contacted at l.yin@tue.nl.
 
