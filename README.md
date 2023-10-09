@@ -43,7 +43,7 @@ The best performance method is indicated in <b>bold </b>, and the gain in perple
 
 
 
-Table of contents
+## Table of contents
 * [Installation](#installation)
 * [Usage](#Usage)
 
