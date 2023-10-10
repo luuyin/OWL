@@ -83,7 +83,7 @@ Installation instructions can be found in [INSTALL.md](INSTALL.md).
 We provide a quick overview of the arguments:  
 - `--model`: The identifier for the LLaMA model on the Hugging Face model hub.
 - `--cache_dir`: Directory for loading or storing LLM weights. The default is `llm_weights`.
-- `--prune_method`: Pruning methods,namely [`wanda_owl`,`sparsegtp_owl`,`magnitude`, `wanda`, `sparsegpt`].
+- `--prune_method`: Pruning methods,namely [`wanda_owl`,`sparsegpt_owl`,`magnitude`, `wanda`, `sparsegpt`].
 - `--sparsity_ratio`: Denotes the percentage of weights to be pruned.
 - `--save`: Specifies the directory where the result will be stored.
 - `--Hyper_m`: Denotes the hyperparameter of `M`.
@@ -96,7 +96,6 @@ We provide a quick overview of the arguments:
 ### Script example of pruning llama-7b using OWL-wanda
 
 ```
-
 python   main.py    \
 --model_name_or_path decapoda-research/llama-7b-hf     \
 --Lamda 0.08 \
@@ -106,7 +105,33 @@ python   main.py    \
 --sparsity_ratio 0.7 \
 --sparsity_type unstructured \
 --save save_test/
+```
 
+
+### Script example of pruning llama-7b using OWL-SparseGPT
+```
+python   main.py    \
+--model_name_or_path decapoda-research/llama-7b-hf     \
+--Lamda 0.08 \
+--Hyper_m 5 \
+--model decapoda-research/llama-7b-hf     \
+--prune_method sparsegpt_owl     \
+--sparsity_ratio 0.7 \
+--sparsity_type unstructured \
+--save save_test/
+```
+
+### Script example of pruning llama-7b using OWL-magnitude
+```
+python   main.py    \
+--model_name_or_path decapoda-research/llama-7b-hf     \
+--Lamda 0.08 \
+--Hyper_m 5 \
+--model decapoda-research/llama-7b-hf     \
+--prune_method magnitude_owl      \
+--sparsity_ratio 0.7 \
+--sparsity_type unstructured \
+--save save_test/
 ```
 
 
