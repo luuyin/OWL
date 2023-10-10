@@ -359,14 +359,11 @@ def prune_mag_outlier(args, model, tokenizer, device=torch.device("cuda:0"), pru
 
             activation_data=torch.sqrt(wrapped_layers[name].scaler_row.reshape((1,-1)))
 
-            layer_wmetric.append(activation_data)
             
             
-            if args.outlier_by_activation:
-                layer_wmetric.append(activation_data)
-                
-            elif args.outlier_by_wmetric:
-                layer_wmetric.append(W_metric)    
+            
+ 
+            layer_wmetric.append(W_metric)    
                 
 
         for j in range(args.nsamples):
