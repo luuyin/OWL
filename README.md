@@ -66,10 +66,6 @@ The best performance method is indicated in <b>bold </b>, and the gain in perple
 
 
 
-
-
-
-
 ## Installation 
 --- 
 Installation instructions can be found in [INSTALL.md](INSTALL.md).
@@ -133,6 +129,8 @@ python   main.py    \
 --save save_test/
 ```
 
+### Acknowledgement
+This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories.
 
 **More details coming soon!**
 
