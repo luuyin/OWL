@@ -19,7 +19,6 @@ The code can be contacted at l.yin@tue.nl.
 
 
 ## Table of contents
-* [TL;DR](#TL;DR)
 
 * [Abstract](#abstract)
 
@@ -58,9 +57,9 @@ Large Language Models (LLMs), renowned for their remarkable performance across d
 | Dense      | -                      | -                 | 5.68           | 5.09             | 4.10             | 4.77             | 10.13        |
 | Magnitude  | Uniform                | ❌               | 48419.12       | 84539.45         | 977.73           | 46.89            | 290985.03    |
 | Wanda      | Uniform                | ❌               | 85.77          | 55.90            | 17.37            | 15.23            | 162.92       |
-| OWL w. Wanda | Non-Uni             | ❌               | **24.55 (-61.22)** | **17.17 (-38.73)** | **10.75 (-6.62)** | **8.61 (-6.62)** | **40.22 (-120.70)** |
+| OWL w. Wanda | Non-Uniform             | ❌               | **24.55 (61.22)** | **17.17 (38.73)** | **10.75 (6.62)** | **8.61 (6.62)** | **40.22 (120.70)** |
 | SparseGPT  | Uniform                | ✔️               | 26.30          | 19.24            | 12.56            | 10.45            | **20.29**    |
-| OWL w. SparseGPT | Non-Uni         | ✔️               | **19.49 (-6.81)** | **14.55 (-4.69)** | **10.28 (-2.28)** | **8.28 (-0.64)** | 22.48 (2.19)  |
+| OWL w. SparseGPT | Non-Uniform         | ✔️               | **19.49 (6.81)** | **14.55 (4.69)** | **10.28 (2.28)** | **8.28 (0.64)** | 22.48 (+2.19)  |
 
 
 <p style="text-align: center;"><i>WikiText validation perplexity of pruning methods for LLaMA-V1 family and OPT-6.7B at 70% sparsity. 
@@ -117,5 +116,10 @@ python   main.py    \
 if you find this repo is helpful, please cite
 
 ```
+@article{yin2023owl,
+  title={Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity},
+  author={Lu Yin, You Wu, Zhenyu Zhang, Cheng-Yu Hsieh, Yaqing Wang, Yiling Jia, Mykola Pechenizkiy, Yi Liang, Zhangyang Wang, Shiwei Liu},
+  year={2023}
+}
 
 ```
