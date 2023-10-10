@@ -281,6 +281,176 @@ def prune_wanda(args, model, tokenizer, device=torch.device("cuda:0"), prune_n=0
 
 
 
+
+def prune_mag_outlier(args, model, tokenizer, device=torch.device("cuda:0"), prune_n=0, prune_m=0):
+    ## SparseGPT code available at: https://github.com/IST-DASLab/sparsegpt/tree/f5c25005a61f96a0933ca2f95705a963585aafaa
+    ##### calucalte outlier ratio
+    
+    
+    
+    all_layer_ratio=[]
+    use_cache = model.config.use_cache 
+    model.config.use_cache = False 
+
+    print("loading calibdation data")
+    dataloader, _ = get_loaders("c4",nsamples=args.nsamples,seed=args.seed,seqlen=2048,tokenizer=tokenizer)
+    print("dataset loading complete")
+    with torch.no_grad():
+        
+        if "OPT" in model.__class__.__name__:
+            
+            inps, outs, attention_mask, position_ids = prepare_calibration_input_opt(model, dataloader, device)
+        else:
+            
+            inps, outs, attention_mask, position_ids = prepare_calibration_input(model, dataloader, device)
+
+
+
+    print ("inps",inps)
+    if "opt" in args.model:
+        layers=model.model.decoder.layers
+        
+    else:
+        layers = model.model.layers
+
+
+    for i in range(len(layers)):
+        layer = layers[i]
+
+        subset = find_layers(layer)
+
+        if f"model.layers.{i}" in model.hf_device_map:   ## handle the case for llama-30B and llama-65B, when the device map has multiple GPUs;
+            dev = model.hf_device_map[f"model.layers.{i}"]
+            inps, outs, attention_mask, position_ids = inps.to(dev), outs.to(dev), attention_mask.to(dev), position_ids.to(dev)
+
+        wrapped_layers = {}
+        for name in subset:
+            wrapped_layers[name] = WrappedGPT(subset[name])
+
+        def add_batch(name):
+            def tmp(_, inp, out):
+                wrapped_layers[name].add_batch(inp[0].data, out.data)
+            return tmp
+
+        handles = []
+        for name in wrapped_layers:
+            handles.append(subset[name].register_forward_hook(add_batch(name)))
+        for j in range(args.nsamples):
+            with torch.no_grad():
+                if "OPT" in model.__class__.__name__:
+                    outs[j] = layer(inps[j].unsqueeze(0), attention_mask=attention_mask)[0]
+                else:
+                    outs[j] = layer(inps[j].unsqueeze(0), attention_mask=attention_mask, position_ids=position_ids)[0]
+        for h in handles:
+            h.remove()
+            
+            
+        layer_wmetric=[]
+
+        for name in subset:
+            
+
+
+            
+
+            print(f"pruning layer {i} name {name}")
+            W_metric = torch.abs(subset[name].weight.data) * torch.sqrt(wrapped_layers[name].scaler_row.reshape((1,-1)))
+
+
+            activation_data=torch.sqrt(wrapped_layers[name].scaler_row.reshape((1,-1)))
+
+            layer_wmetric.append(activation_data)
+            
+            
+            if args.outlier_by_activation:
+                layer_wmetric.append(activation_data)
+                
+            elif args.outlier_by_wmetric:
+                layer_wmetric.append(W_metric)    
+                
+
+        for j in range(args.nsamples):
+            with torch.no_grad():
+                if "OPT" in model.__class__.__name__:
+                    outs[j] = layer(inps[j].unsqueeze(0), attention_mask=attention_mask)[0]
+                else:
+                    outs[j] = layer(inps[j].unsqueeze(0), attention_mask=attention_mask, position_ids=position_ids)[0]
+        inps, outs = outs, inps
+
+
+
+        layer_wmetric = torch.cat([torch.flatten(x.cpu()) for x in layer_wmetric])
+        
+        for out_ratio in [args.Hyper_m]:
+            
+            out_ratio_layer=check_outlier_mean(layer_wmetric,out_ratio)
+            print ("layer outlier ratio",out_ratio,out_ratio_layer)
+
+        
+        all_layer_ratio.append(out_ratio_layer)
+        
+        
+
+
+    print ("before adjustment",all_layer_ratio)
+
+    
+
+    
+    
+    all_layer_ratio=np.array(all_layer_ratio)
+    
+    all_layer_ratio = ((all_layer_ratio - all_layer_ratio.min()) * (1/(all_layer_ratio.max() - all_layer_ratio.min()) * args.Lamda*2))
+    
+    all_layer_ratio=all_layer_ratio-np.mean(all_layer_ratio)+(1-args.sparsity_ratio)
+    
+    print (all_layer_ratio,np.mean(all_layer_ratio),np.max(all_layer_ratio),np.min(all_layer_ratio))
+
+   
+    
+                
+        
+    
+    print ("after adjustment",all_layer_ratio  )
+    
+    
+
+    
+    
+    ############## prune
+
+
+    if "opt" in args.model:
+        layers=model.model.decoder.layers
+        
+    else:
+        layers = model.model.layers
+    
+    print (layers)
+    for i in range(len(layers)):
+        layer = layers[i]
+        subset = find_layers(layer)
+
+        for name in subset:
+            
+            layer_sparsity_ratio= 1-all_layer_ratio[i]
+            W = subset[name].weight.data 
+            W_metric = torch.abs(W)
+            if prune_n != 0:
+                W_mask = (torch.zeros_like(W)==1)
+                for ii in range(W_metric.shape[1]):
+                    if ii % prune_m == 0:
+                        tmp = W_metric[:,ii:(ii+prune_m)].float()
+                        W_mask.scatter_(1,ii+torch.topk(tmp, prune_n,dim=1, largest=False)[1], True)
+            else:
+                thresh = torch.sort(W_metric.flatten().cuda())[0][int(W.numel()*layer_sparsity_ratio)].cpu()
+                W_mask = (W_metric<=thresh)
+
+            W[W_mask] = 0
+                
+
+
+
 def prune_wanda_outlier(args, model, tokenizer, device=torch.device("cuda:0"), prune_n=0, prune_m=0):
     ##### calucalte outlier ratio
     
@@ -303,7 +473,7 @@ def prune_wanda_outlier(args, model, tokenizer, device=torch.device("cuda:0"), p
             inps, outs, attention_mask, position_ids = prepare_calibration_input(model, dataloader, device)
 
 
-    start_time=time.time()
+
     print ("inps",inps)
     if "opt" in args.model:
         layers=model.model.decoder.layers
@@ -405,8 +575,7 @@ def prune_wanda_outlier(args, model, tokenizer, device=torch.device("cuda:0"), p
     
     print ("after adjustment",all_layer_ratio  )
     
-    start_time_over=time.time()
-    
+
 
     model.config.use_cache = use_cache 
     torch.cuda.empty_cache()
@@ -432,7 +601,7 @@ def prune_wanda_outlier(args, model, tokenizer, device=torch.device("cuda:0"), p
             inps, outs, attention_mask, position_ids = prepare_calibration_input(model, dataloader, device)
 
 
-    second_time=time.time()
+
     print ("inps",inps)
     if "opt" in args.model:
         layers=model.model.decoder.layers
@@ -534,9 +703,9 @@ def prune_wanda_outlier(args, model, tokenizer, device=torch.device("cuda:0"), p
         inps, outs = outs, inps
 
 
-    end_time=time.time()
 
-    print("spend: {:.2f}".format((start_time_over - start_time)+ (end_time - second_time)))
+
+
     model.config.use_cache = use_cache 
     torch.cuda.empty_cache()
 
@@ -661,7 +830,7 @@ def prune_sparsegpt_outlier(args, model, tokenizer, dev, prune_n=0, prune_m=0):
             
             inps, outs, attention_mask, position_ids = prepare_calibration_input(model, dataloader, device)
 
-    start_time=time.time()
+
 
     print ("inps",inps)
     if "opt" in args.model:
@@ -770,7 +939,6 @@ def prune_sparsegpt_outlier(args, model, tokenizer, dev, prune_n=0, prune_m=0):
     print ("after adjustment",all_layer_ratio  )
     
     
-    start_time_over=time.time()
 
 
 
@@ -784,7 +952,7 @@ def prune_sparsegpt_outlier(args, model, tokenizer, dev, prune_n=0, prune_m=0):
 
 
 
-    second_time=time.time()
+
 
     use_cache = model.config.use_cache
     model.config.use_cache = False
@@ -885,8 +1053,7 @@ def prune_sparsegpt_outlier(args, model, tokenizer, dev, prune_n=0, prune_m=0):
 
 
 
-    end_time = time.time()
-    print("spend: {:.2f}".format((start_time_over - start_time)+ (end_time - second_time)))
+
 
 
 
