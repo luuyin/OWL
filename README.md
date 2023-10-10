@@ -1,4 +1,4 @@
-#  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity](https://arxiv.org/abs/2310.05175)
+# [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity, [PAPER](https://arxiv.org/abs/2310.05175)
 
 Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning LLMs to High Sparsity
 
@@ -21,10 +21,7 @@ The code can be contacted at l.yin@tue.nl.
 ## Table of contents
 
 * [Abstract](#abstract)
-
-
 * [Results](#Results)
-
 * [Installation](#installation)
 * [Usage](#Usage)
 
@@ -33,15 +30,12 @@ The code can be contacted at l.yin@tue.nl.
 --- 
 Inspiring by the strong correlation to the emergent outliers in the feature dimensions in LLMs, we propose effective layer-wise sparsity ratios for LLM pruning, achieving significant improvement.
 
-
 ## Abstract
 --- 
 Large Language Models (LLMs), renowned for their remarkable performance across diverse domains, present a challenge due to their colossal model size when it comes to practical deployment. In response to this challenge, efforts have been directed toward the application of traditional network pruning techniques to LLMs, uncovering a massive number of parameters can be pruned without hurting performance. Building upon insights gained from pre-LLM models, particularly BERT-level language models, prevailing LLM pruning strategies have consistently adhered to the practice of uniformly pruning all layers at equivalent sparsity levels, resulting in robust performance. However, this observation stands in contrast to the prevailing trends observed in the field of vision models, where non-uniform layerwise sparsity typically yields substantially improved results. To elucidate the underlying reasons for this disparity, we conduct a comprehensive analysis of the distribution of token features within LLMs. In doing so, we discover a strong correlation with the emergence of outliers, defined as features exhibiting significantly greater magnitudes compared to their counterparts in feature dimensions. Inspired by this finding, we introduce a novel LLM pruning methodology that incorporates a tailored set of non-uniform layerwise sparsity ratios specifically designed for LLM pruning, termed as Outlier Weighed Layerwise sparsity **(OWL)**. The sparsity ratio of OWL is directly proportional to the outlier ratio observed within each layer, facilitating a more effective alignment between layerwise weight sparsity and outlier ratios. Our empirical evaluation, conducted across the LLaMA-V1 family and OPT, spanning various benchmarks, demonstrates the distinct advantages offered by OWL over previous methods. For instance, our approach exhibits a remarkable performance gain, surpassing the state-of-the-art Wanda and SparseGPT by 61.22 and 6.80 perplexity at a high sparsity level of 70%, respectively. Code is submitted.
 
-
 ## Results 
 --- 
-
 <p align="center">
 <img src="./Images/ppl.png" width="700" height="200">
 </p>
@@ -64,9 +58,6 @@ Large Language Models (LLMs), renowned for their remarkable performance across d
 
 <p style="text-align: center;"><i>WikiText validation perplexity of pruning methods for LLaMA-V1 family and OPT-6.7B at 70% sparsity. 
 The best performance method is indicated in <b>bold </b>, and the gain in perplexity achieved by OWL is highlighted in blue.</i></p>
-
-
-
 
 
 
@@ -96,7 +87,6 @@ We provide a quick overview of the arguments:
 ### Script example of pruning llama-7b using OWL-wanda
 
 ```
-
 python   main.py    \
 --model_name_or_path decapoda-research/llama-7b-hf     \
 --Lamda 0.08 \
@@ -106,7 +96,6 @@ python   main.py    \
 --sparsity_ratio 0.7 \
 --sparsity_type unstructured \
 --save save_test/
-
 ```
 
 
