@@ -13,8 +13,7 @@ The code can be contacted at l.yin@tue.nl.
 <img src="./Images/Layer_wise_sparsity.png" width="700" height="200">
 </p>
 
-
-<p style="text-align: center;"><i> OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution (LOD)</i></p>
+ OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution.
 
 
 
