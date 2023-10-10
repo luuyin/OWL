@@ -1,4 +1,4 @@
-#  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity]()
+#  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity](https://arxiv.org/abs/2310.05175)
 
 Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning LLMs to High Sparsity
 
@@ -16,6 +16,32 @@ The code can be contacted at l.yin@tue.nl.
 
 <p style="text-align: center;"><i> OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution (LOD)</i></p>
 
+
+
+## Table of contents
+* [TL;DR](#TL;DR)
+
+* [Abstract](#abstract)
+
+
+* [Results](#Results)
+
+* [Installation](#installation)
+* [Usage](#Usage)
+
+
+## TL;DR
+--- 
+Inspiring by the strong correlation to the emergent outliers in the feature dimensions in LLMs, we propose effective layer-wise sparsity ratios for LLM pruning, achieving significant improvement.
+
+
+## Abstract
+--- 
+Large Language Models (LLMs), renowned for their remarkable performance across diverse domains, present a challenge due to their colossal model size when it comes to practical deployment. In response to this challenge, efforts have been directed toward the application of traditional network pruning techniques to LLMs, uncovering a massive number of parameters can be pruned without hurting performance. Building upon insights gained from pre-LLM models, particularly BERT-level language models, prevailing LLM pruning strategies have consistently adhered to the practice of uniformly pruning all layers at equivalent sparsity levels, resulting in robust performance. However, this observation stands in contrast to the prevailing trends observed in the field of vision models, where non-uniform layerwise sparsity typically yields substantially improved results. To elucidate the underlying reasons for this disparity, we conduct a comprehensive analysis of the distribution of token features within LLMs. In doing so, we discover a strong correlation with the emergence of outliers, defined as features exhibiting significantly greater magnitudes compared to their counterparts in feature dimensions. Inspired by this finding, we introduce a novel LLM pruning methodology that incorporates a tailored set of non-uniform layerwise sparsity ratios specifically designed for LLM pruning, termed as Outlier Weighed Layerwise sparsity **(OWL)**. The sparsity ratio of OWL is directly proportional to the outlier ratio observed within each layer, facilitating a more effective alignment between layerwise weight sparsity and outlier ratios. Our empirical evaluation, conducted across the LLaMA-V1 family and OPT, spanning various benchmarks, demonstrates the distinct advantages offered by OWL over previous methods. For instance, our approach exhibits a remarkable performance gain, surpassing the state-of-the-art Wanda and SparseGPT by 61.22 and 6.80 perplexity at a high sparsity level of 70%, respectively. Code is submitted.
+
+
+## Results 
+--- 
 
 <p align="center">
 <img src="./Images/ppl.png" width="700" height="200">
@@ -43,20 +69,18 @@ The best performance method is indicated in <b>bold </b>, and the gain in perple
 
 
 
-## Table of contents
-* [Installation](#installation)
-* [Usage](#Usage)
 
----
+
 
 ## Installation 
+--- 
 Installation instructions can be found in [INSTALL.md](INSTALL.md).
 
 
 
 ## Usage
 
----
+--- 
 We provide a quick overview of the arguments:  
 - `--model`: The identifier for the LLaMA model on the Hugging Face model hub.
 - `--cache_dir`: Directory for loading or storing LLM weights. The default is `llm_weights`.
@@ -69,44 +93,21 @@ We provide a quick overview of the arguments:
 
 
 
----
+--- 
 ### Script example of pruning llama-7b using OWL-wanda
 
 ```
-for sparsity_ratio in 0.7 
-do
-    for Lamda in 0.08
-    do
-        for Hyper_m in 5
-        do
-             python   main.py    \
-            --model_name_or_path decapoda-research/llama-7b-hf     \
-            --Lamda $Lamda \
-            --Hyper_m $Hyper_m \
-            --model decapoda-research/llama-7b-hf     \
-            --prune_method wanda_owl     \
-            --sparsity_ratio $sparsity_ratio \
-            --sparsity_type unstructured \
-            --save test/
-        done
-    done
-done
 
-```
+python   main.py    \
+--model_name_or_path decapoda-research/llama-7b-hf     \
+--Lamda 0.08 \
+--Hyper_m 5 \
+--model decapoda-research/llama-7b-hf     \
+--prune_method wanda_owl     \
+--sparsity_ratio 0.7 \
+--sparsity_type unstructured \
+--save save_test/
 
-### Zero-Shot Benchmarking
-
-```
-# pip install lm-eval
-cd zero_shot_benchmark
-# step 1: generate test-data
-bash scripts/data_generation/run.sh
-
-# step 2: generate the output
-bash scripts/benchmark/run.sh # modify line 2 for the name of output-file and line 3 for the target evaluation model
-
-# step 3: calculate metrics
-bash scripts/benchmark/eval.sh # modify line 2 to align the output-file name of step 2
 ```
 
 
