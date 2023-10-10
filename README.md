@@ -110,7 +110,9 @@ python   main.py    \
 ```
 
 
-
+<p align="center">
+<img src="./Images/More_details.png" width="220" height="120">
+</p>
 
 ## Citation
 if you find this repo is helpful, please cite
