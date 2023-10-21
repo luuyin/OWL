@@ -17,7 +17,7 @@ The code can be contacted at l.yin@tue.nl.
 
 
 ## Update
-- [x] (10.21.2023) Add support for OWL-wanda [n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
+- [x] (10.21.2023) Add support for [OWL-wanda n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
 
 
 ## Table of contents
