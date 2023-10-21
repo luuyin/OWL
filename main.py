@@ -378,7 +378,7 @@ def main():
         
         
     elif args.prune_method == "wanda_owl_structure_special":
-        prune_wanda_outlier_structure(args, model, tokenizer, device, prune_n=prune_n, prune_m=prune_m)
+        prune_wanda_outlier_structure_special(args, model, tokenizer, device, prune_n=prune_n, prune_m=prune_m)
 
 
          
