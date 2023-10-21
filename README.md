@@ -16,6 +16,9 @@ The code can be contacted at l.yin@tue.nl.
  OWL layerwise sparsity and Uniform layerwise sparsity at 70% sparsity. The bar chart in background corresponds to the Layerwise Outlier Distribution.
 
 
+## Update
+- [x] (10.21.2023) Add support for OWL-wanda n:m sparsity.
+
 
 ## Table of contents
 
@@ -88,7 +91,7 @@ We provide a quick overview of the arguments:
 
 
 --- 
-### Script example of pruning llama-7b using OWL-wanda
+### Script example of pruning llama-7b using OWL-wanda 
 
 ```
 python   main.py    \
@@ -99,6 +102,19 @@ python   main.py    \
 --prune_method wanda_owl     \
 --sparsity_ratio 0.7 \
 --sparsity_type unstructured \
+--save save_test/
+```
+
+### Script example of pruning llama-7b using OWL-wanda [n:m sparsity]
+```
+python   main.py    \
+--model_name_or_path decapoda-research/llama-7b-hf     \
+--Lamda 2 \
+--Hyper_m 6 \
+--model decapoda-research/llama-7b-hf     \
+--prune_method wanda_owl_structure      \
+--sparsity_ratio 0.5 \
+--sparsity_type "5:8"  \
 --save save_test/
 ```
 
@@ -128,6 +144,14 @@ python   main.py    \
 --sparsity_type unstructured \
 --save save_test/
 ```
+
+
+
+
+
+
+
+
 
 ### Acknowledgement
 This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories.
