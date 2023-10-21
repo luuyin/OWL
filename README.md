@@ -17,7 +17,7 @@ The code can be contacted at l.yin@tue.nl.
 
 
 ## Update
-- [x] (10.21.2023) Add support for OWL-wanda n:m sparsity.
+- [x] (10.21.2023) Add support for OWL-wanda [n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
 
 
 ## Table of contents
@@ -81,7 +81,7 @@ Installation instructions can be found in [INSTALL.md](INSTALL.md).
 We provide a quick overview of the arguments:  
 - `--model`: The identifier for the LLaMA model on the Hugging Face model hub.
 - `--cache_dir`: Directory for loading or storing LLM weights. The default is `llm_weights`.
-- `--prune_method`: Pruning methods,namely [`wanda_owl`,`sparsegpt_owl`,`magnitude`, `wanda`, `sparsegpt`].
+- `--prune_method`: Pruning methods,namely [`wanda_owl`,`wanda_owl_structure`,`sparsegpt_owl`,`magnitude`, `wanda`, `sparsegpt`].
 - `--sparsity_ratio`: Denotes the percentage of weights to be pruned.
 - `--save`: Specifies the directory where the result will be stored.
 - `--Hyper_m`: Denotes the hyperparameter of `M`.
