@@ -148,8 +148,22 @@ python   main.py    \
 
 
 
+### Zero-shot evaluation
 
+#### step1: generation data: 
 
+```
+bash scripts/data_genration/run.sh 
+```
+#### step2: obtain prediction:
+```
+bash benchmark/run.sh 
+```
+#### step3: evaluation results: 
+
+```
+bash benchmark/eval.sh
+```
 
 
 
