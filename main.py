@@ -397,7 +397,10 @@ def main():
 
 
 
-    
+    if args.save_model:
+        model.save_pretrained(args.save_model)
+        tokenizer.save_pretrained(args.save_model)
+        print(f"model saved to {args.save_model}")
 
 
 
