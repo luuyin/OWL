@@ -1,4 +1,4 @@
-#  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity](https://arxiv.org/abs/2310.05175)
+#  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity [ICML 2024] ](https://arxiv.org/abs/2310.05175)
 
 Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning LLMs to High Sparsity
 
@@ -166,9 +166,29 @@ bash benchmark/eval.sh
 ```
 
 
+###  CPU-Acceleration
+
+Install [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse)
+
+#### step1: create sparse model checkpoint using OWL, and save to model_path
+#### step1: export checkpoint to onnx format
+```
+sparseml.export --task text-generation model_path
+```
+#### step1: evaluate using deepsparse
+```
+deepsparse.benchmark model_path/deployment/model.onnx --sequence_length 2048
+```
+
+
+
+
+
+
+
 
 ### Acknowledgement
-This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories.
+This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories. The cpu acceleration is based on  [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse) repositories.
 
 **More details coming soon!**
 
