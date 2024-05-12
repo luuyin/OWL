@@ -190,15 +190,15 @@ deepsparse.benchmark model_path/deployment/model.onnx --sequence_length 2048
 ### Acknowledgement
 This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories. The cpu acceleration is based on  [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse) repositories.
 
-**More details coming soon!**
 
 ## Citation
 if you find this repo is helpful, please cite
 
 ```
-@article{yin2023owl,
-  title={Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity},
-  author={Lu Yin, You Wu, Zhenyu Zhang, Cheng-Yu Hsieh, Yaqing Wang, Yiling Jia, Mykola Pechenizkiy, Yi Liang, Zhangyang Wang, Shiwei Liu},
+@article{yin2023outlier,
+  title={Outlier weighed layerwise sparsity (owl): A missing secret sauce for pruning llms to high sparsity},
+  author={Yin, Lu and Wu, You and Zhang, Zhenyu and Hsieh, Cheng-Yu and Wang, Yaqing and Jia, Yiling and Pechenizkiy, Mykola and Liang, Yi and Wang, Zhangyang and Liu, Shiwei},
+  journal={arXiv preprint arXiv:2310.05175},
   year={2023}
 }
 ```
