@@ -150,16 +150,16 @@ python   main.py    \
 
 ### Zero-shot evaluation
 
-#### step1: generation data: 
+#### Step1: generation data: 
 
 ```
 bash scripts/data_genration/run.sh 
 ```
-#### step2: obtain prediction:
+#### Step2: obtain prediction:
 ```
 bash benchmark/run.sh 
 ```
-#### step3: evaluation results: 
+#### Step3: evaluation results: 
 
 ```
 bash benchmark/eval.sh
@@ -170,21 +170,15 @@ bash benchmark/eval.sh
 
 Install [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse)
 
-#### step1: create sparse model checkpoint using OWL, and save to model_path
-#### step2: export checkpoint to ONNX format
+#### Step1: create sparse model checkpoint using OWL, and save to model_path
+#### Step2: export checkpoint to ONNX format
 ```
 sparseml.export --task text-generation model_path
 ```
-#### step3: evaluate using deepsparse
+#### Step3: evaluate using deepsparse
 ```
 deepsparse.benchmark model_path/deployment/model.onnx --sequence_length 2048
 ```
-
-
-
-
-
-
 
 
 ### Acknowledgement
