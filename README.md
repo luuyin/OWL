@@ -17,8 +17,8 @@ The code can be contacted at l.yin@tue.nl.
 
 
 ## Update
-- [x] (10.21.2023) Add support for [OWL-wanda n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
-
+- [x] (10.2023) Add support for [OWL-wanda n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
+- [x] (05.2024) Add support for CPU acceleration.
 
 ## Table of contents
 
@@ -171,11 +171,11 @@ bash benchmark/eval.sh
 Install [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse)
 
 #### step1: create sparse model checkpoint using OWL, and save to model_path
-#### step1: export checkpoint to onnx format
+#### step2: export checkpoint to ONNX format
 ```
 sparseml.export --task text-generation model_path
 ```
-#### step1: evaluate using deepsparse
+#### step3: evaluate using deepsparse
 ```
 deepsparse.benchmark model_path/deployment/model.onnx --sequence_length 2048
 ```
