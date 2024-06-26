@@ -19,7 +19,8 @@ The code can be contacted at l.yin@tue.nl.
 ## Update
 - [x] (10.2023) Add support for [OWL-wanda n:m sparsity](https://github.com/luuyin/OWL/blob/main/lib/prune_all.py#L498).
 - [x] (05.2024) Add support for CPU acceleration.
-
+- [x] (06.2024) Add support for Lora finetuning
+      
 ## Table of contents
 
 * [Abstract](#abstract)
@@ -179,7 +180,31 @@ sparseml.export --task text-generation model_path
 ```
 deepsparse.benchmark model_path/deployment/model.onnx --sequence_length 2048
 ```
+###  Lora finetuning  on C4
 
+
+#### Step1: lora ft checkpoint from "your_sparse_model_path", and save to "lora_ft_model_path"
+CUDA_VISIBLE_DEVICES=0,1 python finetune_lm.py \
+    --model_name_or_path "your_sparse_model_path" \
+    --config_name "your_sparse_model_path" \
+    --dataset_name c4 \
+    --num_train_epochs 1 \
+    --block_size 1024 \
+    --per_device_train_batch_size 2 \
+    --per_device_eval_batch_size 8 \
+    --do_train \
+    --do_eval \
+    --max_train_samples 240000 \
+    --max_eval_samples 128 \
+    --learning_rate 1e-4 \
+    --overwrite_output_dir \
+    --output_dir "lora_ft_model_path"
+
+#### Step2: evaluate the ppl
+CUDA_VISIBLE_DEVICES=0,1 python evaluate_ppl.py \
+    --model "your_sparse_model_path" \
+    --lora_weights "lora_ft_model_path"
+    
 
 ### Acknowledgement
 This repository is build upon the [Wanda](https://github.com/locuslab/wanda) and [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repositories. The cpu acceleration is based on  [sparseml](https://github.com/neuralmagic/sparseml) and  [deepsparse](https://github.com/neuralmagic/deepsparse) repositories.
