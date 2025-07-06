@@ -1,7 +1,7 @@
 #  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity [ICML 2024] ](https://arxiv.org/abs/2310.05175)
 
 <p align="center">
-<img src="./Images/Google_DeepMind_logo.svg.png" width="700" height="200">
+<img src="./Images/Google_DeepMind_logo.svg.png" width="399" height="200">
 </p>
 
 
