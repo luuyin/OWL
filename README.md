@@ -12,7 +12,7 @@ Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning 
 
 **University of Texas at Austin, Eindhoven University of Technology, Google Research, NY. University of Washington.**
 
-The code can be contacted at l.yin@tue.nl.
+The code can be contacted at l.yin@surrey.ac.uk.
 
 
 <p align="center">
