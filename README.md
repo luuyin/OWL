@@ -1,7 +1,7 @@
 #  [Outlier Weighed Layerwise Sparsity (OWL): A Missing Secret Sauce for Pruning LLMs to High Sparsity [ICML 2024] ](https://arxiv.org/abs/2310.05175)
 
 <p align="center">
-<img src="./Images/Google_DeepMind_logo.svg.png" width="399" height="200">
+<img src="./Images/logo.png" width="1000" height="200">
 </p>
 
 
@@ -10,7 +10,7 @@ Official PyTorch implementation of  **OWL**: A Missing Secret Sauce for Pruning 
 
 [Lu Yin](https://luuyin.com//), [You Wu](https://research.google/people/YouWillWu/), [Zhenyu Zhang](https://scholar.google.com/citations?user=ZLyJRxoAAAAJ&hl=zh-CN), [Cheng-Yu Hsieh](https://chengyuhsieh.github.io/), [Yaqing Wang](https://yaqingwang.github.io/), [Yiling Jia](https://yilingjia.github.io/), [Mykola Pechenizkiy](https://www.tue.nl/en/research/researchers/mykola-pechenizkiy), [Yi Liang](https://research.google/people/108265/), [Zhangyang Wang](https://vita-group.github.io/), [Shiwei Liu](https://shiweiliuiiiiiii.github.io/)
 
-**University of Texas at Austin, Eindhoven University of Technology, Google DeepMind, NY. University of Washington.**
+**Google DeepMind, University of Oxford, University of Texas at Austin, Eindhoven University of Technology, University of Surrey, Clemson University, University of Washington.**
 
 The code can be contacted at l.yin@surrey.ac.uk.
 
